@@ -1,0 +1,147 @@
+
+
+1. Check firewall state:
+=====================================================
+
+firewall-cmd --state
+
+2. Update yum packages
+=====================================================
+
+yum update -y
+
+3. Create users and groups:
+=====================================================
+
+groupadd oinstall
+groupadd dba
+useradd -g oinstall -G dba oracle
+passwd oracle
+
+4. Modify contents of /etc/sysctl.conf:
+=====================================================
+
+vim /etc/sysctl.conf
+
+-------------------------------------
+fs.aio-max-nr = 1048576
+fs.file-max = 6815744
+kernel.shmall = 2097152
+kernel.shmmax = 1987162112
+kernel.shmmni = 4096
+kernel.sem = 250 32000 100 128
+net.ipv4.ip_local_port_range = 9000 65500
+net.core.rmem_default = 262144
+net.core.rmem_max = 4194304
+net.core.wmem_default = 262144
+net.core.wmem_max = 1048586
+-------------------------------------
+
+5. Apply new values:
+=====================================================
+
+sysctl -p
+sysctl -a
+
+6. Modify /etc/security/limits.conf:
+=====================================================
+
+vim /etc/security/limits.conf
+
+-------------------------------------
+oracle soft nproc 2047
+oracle hard nproc 16384
+oracle soft nofile 1024
+oracle hard nofile 65536
+
+-------------------------------------
+
+7. Install zip:
+=====================================================
+
+yum install -y zip unzip
+
+8. Copy installation package taken from http://www.oracle.com/technetwork/database/enterprise-edition/downloads/oracle12c-linux-12201-3608234.html to root directory
+   Direct link: http://download.oracle.com/otn/linux/oracle12c/122010/linuxx64_12201_database.zip
+=====================================================
+
+unzip linuxx64_12201_database.zip -d /stage/
+
+9. Modify permissions on /stage:
+=====================================================
+
+chown -R oracle:oinstall /stage/
+
+10. Create /u01 directory for Oracle software and /u02 for database files:
+=====================================================
+
+mkdir /u01
+mkdir /u02
+chown -R oracle:oinstall /u01
+chown -R oracle:oinstall /u02
+chmod -R 775 /u01
+chmod -R 775 /u02
+chmod g+s /u01
+chmod g+s /u02
+
+11. Install required packages:
+=====================================================
+
+yum install -y binutils.x86_64 compat-libcap1.x86_64 gcc.x86_64 gcc-c++.x86_64 glibc.i686 glibc.x86_64 glibc-devel.i686 glibc-devel.x86_64 ksh compat-libstdc++-33 libaio.i686 libaio.x86_64 libaio-devel.i686 libaio-devel.x86_64 libgcc.i686 libgcc.x86_64 libstdc++.i686 libstdc++.x86_64 libstdc++-devel.i686 libstdc++-devel.x86_64 libXi.i686 libXi.x86_64 libXtst.i686 libXtst.x86_64 make.x86_64 sysstat.x86_64
+yum groupinstall "X Window System"
+yum groupinstall "Development Tools"
+yum install xterm
+
+12. Install Xming server on Windows client.
+=====================================================
+
+13. Run xterm in Linux console:
+=====================================================
+
+xterm 
+
+14. In graphical console run runInstaller (login to the console as oracle):
+=====================================================
+
+/stage/database/runInstaller
+
+15. Configure firewall:
+=====================================================
+
+firewall-cmd --get-active-zones
+firewall-cmd --zone=public --add-port=1521/tcp --add-port=5500/tcp --add-port=5520/tcp --add-port=3938/tcp \
+firewall-cmd --zone=public --add-port=1521/tcp --add-port=5500/tcp --add-port=5520/tcp --add-port=3938/tcp --permanent
+firewall-cmd --reload
+firewall-cmd --list-ports
+sqlplus system@orcl
+
+16. Login as oracle user and modify /home/oracle/.bash_profile (login to the console as oracle)
+=====================================================
+
+vim /home/oracle/.bash_profile
+
+-------------------------------------
+TMPDIR=$TMP; export TMPDIR
+ORACLE_BASE=/u01/app/oracle; export ORACLE_BASE
+ORACLE_HOME=$ORACLE_BASE/product/12.2.0/dbhome_1; export ORACLE_HOME
+ORACLE_SID=orcl; export ORACLE_SID
+PATH=$ORACLE_HOME/bin:$PATH; export PATH
+LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib:/usr/lib64; export LD_LIBRARY_PATH
+CLASSPATH=$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib; export CLASSPATH
+-------------------------------------
+
+17. Reload the bash_profile to apply the new settings (login to the console as oracle):
+=====================================================
+
+. .bash_profile
+
+
+18. Login to the database (login to the console as oracle):
+=====================================================
+
+sqlplus system@orcl
+
+19. Connect to Oracle Enterprise Manager (from Windows client):
+=====================================================
+
+https://<hostname>:5500/em
