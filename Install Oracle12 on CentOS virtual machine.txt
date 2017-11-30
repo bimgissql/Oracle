@@ -153,6 +153,10 @@ Troubleshooting:
 =====================================================
 
 1. Oracle installer may show alert about incorrect limit of maximum stack size.
+-------------------------------------
+Soft Limit: maximum stack size - This is a prerequisite condition to test whether the soft limit for maximum stack size is set correctly. Details: 
+PRVG-0449 : Proper soft limit for maximum stack size was not found on node "oracle12" [Expected >= "10240" ; Found = "8192"].  - Cause:  The Cluster Verification Utility determined that the setting for the indicated soft limit did not meet Oracle''s recommendations for proper operation on the indicated nodes.  - Action:  Modify the resource limits to meet the requirement and take operating system specific measures to ensure that the corrected value takes effect for the current user before retrying this check.
+-------------------------------------
 
 view all soft limits:
 ulimit -S -a 
