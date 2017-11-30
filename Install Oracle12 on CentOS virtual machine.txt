@@ -95,9 +95,10 @@ yum install xterm
 12. Install Xming server on Windows client.
 =====================================================
 
-13. Run xterm in Linux console:
+13. Run xterm in Linux console (login to the console as oracle):
 =====================================================
 
+export DISPLAY=192.168.55.103:0
 xterm 
 
 14. In graphical console run runInstaller (login to the console as oracle):
