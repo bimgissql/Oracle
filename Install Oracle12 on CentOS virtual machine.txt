@@ -125,7 +125,6 @@ firewall-cmd --zone=public --add-port=1521/tcp --add-port=5500/tcp --add-port=55
 firewall-cmd --zone=public --add-port=1521/tcp --add-port=5500/tcp --add-port=5520/tcp --add-port=3938/tcp --permanent
 firewall-cmd --reload
 firewall-cmd --list-ports
-sqlplus system@orcl
 
 16. Login as oracle user and modify /home/oracle/.bash_profile (login to the console as oracle)
 =====================================================
