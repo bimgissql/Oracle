@@ -147,3 +147,24 @@ sqlplus system@orcl
 =====================================================
 
 https://<hostname>:5500/em
+
+
+Troubleshooting:
+=====================================================
+
+1. Oracle installer may show alert about incorrect limit of maximum stack size.
+
+view all soft limits:
+ulimit -S -a 
+
+view all hard limits:
+ulimit -H -a 
+
+set soft limit to fullfil Oracle needs:
+ulimit -S -s 10240
+
+
+2. Package smartmontools-6.2-4 not found
+
+3. Package net-tools-2.0-0.17 not found
+
