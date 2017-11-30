@@ -121,7 +121,6 @@ xterm
 =====================================================
 
 firewall-cmd --get-active-zones
-firewall-cmd --zone=public --add-port=1521/tcp --add-port=5500/tcp --add-port=5520/tcp --add-port=3938/tcp \
 firewall-cmd --zone=public --add-port=1521/tcp --add-port=5500/tcp --add-port=5520/tcp --add-port=3938/tcp --permanent
 firewall-cmd --reload
 firewall-cmd --list-ports
