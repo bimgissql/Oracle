@@ -110,7 +110,6 @@ yum install xterm
 =====================================================
 
 ulimit -S -s 10240
-export DISPLAY=192.168.55.103:0
 xterm 
 
 14. In graphical console run runInstaller (login to the console as oracle):
