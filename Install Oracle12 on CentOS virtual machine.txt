@@ -61,21 +61,14 @@ oracle hard nofile 65536
 
 yum install -y zip unzip
 
-8.1. Copy Oracle 12.1 installation package taken from http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html to root directory.
-Direct links: http://download.oracle.com/otn/linux/oracle12c/121020/linuxamd64_12102_database_se2_1of2.zip
-              http://download.oracle.com/otn/linux/oracle12c/121020/linuxamd64_12102_database_se2_2of2.zip
+8. Copy Oracle 12.1 installation package taken from http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html to root directory.
+Direct links: 
+http://download.oracle.com/otn/linux/oracle12c/121020/linuxamd64_12102_database_se2_1of2.zip
+http://download.oracle.com/otn/linux/oracle12c/121020/linuxamd64_12102_database_se2_2of2.zip
 =====================================================
 
-unzip linuxamd64_12102_database_1of2.zip -d /stage/
-unzip linuxamd64_12102_database_2of2.zip -d /stage/
-
-OR 
-
-8.2. Copy Oracle 12.2 installation package taken from http://www.oracle.com/technetwork/database/enterprise-edition/downloads/oracle12c-linux-12201-3608234.html to root directory
-Direct link: http://download.oracle.com/otn/linux/oracle12c/122010/linuxx64_12201_database.zip
-=====================================================
-
-unzip linuxx64_12201_database.zip -d /stage/
+unzip linuxamd64_12102_database_se2_1of2.zip -d /stage/
+unzip linuxamd64_12102_database_se2_2of2.zip -d /stage/
 
 
 9. Modify permissions on /stage:
@@ -133,7 +126,7 @@ vim /home/oracle/.bash_profile
 -------------------------------------
 TMPDIR=$TMP; export TMPDIR
 ORACLE_BASE=/u01/app/oracle; export ORACLE_BASE
-ORACLE_HOME=$ORACLE_BASE/product/12.2.0/dbhome_1; export ORACLE_HOME
+ORACLE_HOME=$ORACLE_BASE/product/12.1.0/dbhome_1; export ORACLE_HOME
 ORACLE_SID=orcl; export ORACLE_SID
 PATH=$ORACLE_HOME/bin:$PATH; export PATH
 LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib:/usr/lib64; export LD_LIBRARY_PATH
